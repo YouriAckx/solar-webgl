@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+  
+  <head>
+    <style type="text/css">
+      body {
+        background-image: url('stars.jpg');
+        margin: 0;
+        font-family: sans-serif;
+      }
+      
+      #banner {
+        background-color: white;
+        padding: 1em;
+        font-size: small;
+      }
+    </style>
+  </head>
+  
+  <body>
+    
+    <div id="banner">
+      Move mouse and:<br/>
+      left click (or hold 'A') to rotate ~ 
+      middle click (or hold 'S') to zoom ~
+      right  click (or hold 'D') to pan
+    </div>
+
+    <script src="http://www.html5canvastutorials.com/libraries/Three.js"></script>
+    <script src="http://stemkoski.github.com/Three.js/js/Detector.js"></script>
+    <script src="http://stemkoski.github.com/Three.js/js/THREEx.KeyboardState.js"></script>
+    <script src="http://stemkoski.github.com/Three.js/js/THREEx.WindowResize.js"></script>
+    
+    <script>
+      if (!Detector.webgl) Detector.addGetWebGLMessage();
+
+      var earth;
+      var earthAngle = 0.0;
+      var angularSpeed = 0.2;      // revolutions per second
+      var lastTime = new Date();
+      var scene, camera, renderer, controls;
+
+      window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+           function(callback) {
+             window.setTimeout(callback, 1000 / 60);
+           };
+      })();
+
+      function animate() {
+        // update
+        var date = new Date();
+        var time = date.getTime();
+        var timeDiff = time - lastTime;
+        var angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
+        earthAngle += angleChange;
+        earth.position.x = Math.sin(earthAngle) * 400;
+        earth.position.z = Math.cos(earthAngle) * 300;
+        lastTime = time;
+
+        // render
+        renderer.render(scene, camera);
+
+        // checks controls
+        controls.update();
+
+        // request new frame
+        requestAnimFrame(animate);
+      };
+
+      window.onload = function() {
+        // renderer
+        renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        // camera
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.z = 900;
+        camera.position.y = 100;
+        camera.lookAt(0, 0, 0);
+
+        // for the original IPL exercise orthogonal camera, use:
+        //camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2,  window.innerHeight / -2, 1, 1000);
+
+        // automatically resize renderer
+        THREEx.WindowResize(renderer, camera);
+
+        // move mouse and: left   click (or hold 'A') to rotate, 
+        //                 middle click (or hold 'S') to zoom, 
+        //                 right  click (or hold 'D') to pan
+        controls = new THREE.TrackballControls( camera );
+
+        // scene
+        scene = new THREE.Scene();
+
+        // sun
+        var sun = new THREE.Mesh(
+            new THREE.SphereGeometry(150, 50, 50),
+            new THREE.MeshLambertMaterial({color: 0xffff55}));
+        sun.overdraw = true;
+        scene.add(sun);
+
+        // earth
+        earth = new THREE.Mesh(
+            new THREE.SphereGeometry(30, 30, 30),
+            new THREE.MeshLambertMaterial({color: 0x5555ff}));
+        earth.overdraw = true;
+        scene.add(earth);
+
+        // subtle ambient lighting
+        var ambientLight = new THREE.AmbientLight(0xcccccc);
+        scene.add(ambientLight);
+
+        // point light source
+        var pointLight = new THREE.PointLight(0xffffff, 1.0, 0.0);
+        pointLight.position.set(0, 0, 0);
+        scene.add(pointLight);       
+
+        animate();
+      };
+
+    </script>
+
+  </body>
+</html>
