@@ -1,0 +1,28 @@
+{
+    "title": "Solar WebGL",
+    "name": "solar-webgl",
+    "version": "4.0.0",
+    "description": "Simple WebGL experiment. A planet turning around a sun.",
+    "keywords": [
+        "html",
+        "webgl"
+    ],
+    "homepage": "https://play.sugoi.be",
+    "bugs": {
+        "url": "https://github.com/YouriAckx/solar-webgl/issues"
+    },
+    "license": "Copyright",
+    "author": "Youri Ackx",
+    "contributors": [],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/YouriAckx/solar-webgl"
+    },
+    "dependencies": {
+        "bootstrap": "4.0.0"
+    },
+    "devDependencies": {
+        "browser-sync": "2.23.6",
+        "gulp": "^3.9.1"
+    }
+}
