@@ -12,7 +12,7 @@ var banner = ['/*!\n',
 
 gulp.task('dist', ['js'], function () {
     gulp.src(['./index.html',]).pipe(gulp.dest('./dist'));
-    gulp.src(['./app/img/*']).pipe(gulp.dest('./dist/img'));
+    gulp.src(['./img/*']).pipe(gulp.dest('./dist/img'));
     gulp.src(['./vendor/**/*.min.js']).pipe(gulp.dest('./dist/vendor'));
 });
 
