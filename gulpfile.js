@@ -9,8 +9,9 @@ var banner = ['/*!\n',
 ].join('');
 
 gulp.task('dist', ['default'], function () {
-    gulp.src(['index.html',]).pipe(gulp.dest('./dist'));
-    gulp.src(['app/img/*']).pipe(gulp.dest('./dist/img'));
+    gulp.src(['./index.html',]).pipe(gulp.dest('./dist'));
+    gulp.src(['./app/img/*']).pipe(gulp.dest('./dist/img'));
+    gulp.src(['./vendor/**/*']).pipe(gulp.dest('./dist/vendor'));
 });
 
 // Default task
