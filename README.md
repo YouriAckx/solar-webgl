@@ -13,6 +13,7 @@ A simple WebGL experiment. A planet turning around a sun. Use keyboard and mouse
 
 ```
 $ npm install
+$ npm install natives@1.1.6
 ```
 
 To run directly in your browser:
