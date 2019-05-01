@@ -19,7 +19,7 @@
         "url": "https://github.com/yackx/solar-webgl"
     },
     "dependencies": {
-        "bootstrap": "4.0.0",
+        "bootstrap": "4.3.1",
         "jquery": "3.3.1",
         "popper.js": "^1.14.3"
     },
